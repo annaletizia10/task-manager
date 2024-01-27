@@ -1,3 +1,7 @@
+"use client";
+import React from "react";
+import CreateTask from "@/modules/CreateNewTask/page";
+
 export default function Home() {
-  return <div>Hello world</div>;
+  return <CreateTask />;
 }
