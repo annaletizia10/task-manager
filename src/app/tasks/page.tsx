@@ -1,66 +1,43 @@
 "use client";
-import React from "react";
-import { Button, Heading, TextArea, TextField } from "@radix-ui/themes";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import TextInput from "@/app/components/TextInput/page";
 
-const validationSchema = yup.object().shape({
-  title: yup.string().required("Required"),
-  description: yup.string(),
-});
+import { Box, Button, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
+import { IconPlus, IconTrash } from "@tabler/icons-react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { task } from "./new/page";
+import "./styles.css";
 
-export default function CreateTask() {
-  const tasks = localStorage.getItem("tasks");
+function Tasks() {
+  const [tasks, setTasks] = useState([] as task[]);
 
-  const formik = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-    },
-    validationSchema,
-    onSubmit(values) {
-      const tasksArr = [];
-
-      if (!tasks) {
-        tasksArr.push({ ...values });
-      } else {
-        const existingTasks = JSON.parse(tasks);
-        tasksArr.push(...existingTasks, { ...values });
-      }
-
-      const tasksStr = JSON.stringify(tasksArr);
-      localStorage.setItem("tasks", tasksStr);
-    },
-  });
+  useEffect(() => {
+    setTasks(JSON.parse(localStorage.getItem("tasks") as string));
+  }, []);
 
   return (
-    <div>
-      <Heading as="h1">New task</Heading>
-      <form id="task" onSubmit={formik.handleSubmit}>
-        <TextInput
-          placeholder="Title"
-          id="title"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.title}
-          error={
-            formik.touched.title && formik.errors.title
-              ? formik.errors.title
-              : ""
-          }
-        />
-        <TextArea
-          placeholder="description"
-          id="description"
-          onChange={formik.handleChange}
-          value={formik.values.description}
-          onBlur={formik.handleBlur}
-        />
-      </form>
-      <Button form="task" disabled={!formik.isValid}>
-        Create
+    <Flex direction="column" style={{ padding: "30px 30px 0px 0px" }}>
+      <Button className="button">
+        <Link href={"/tasks/new"}>
+          <IconPlus />
+        </Link>
       </Button>
-    </div>
+      <div className="list-container">
+        <Heading className="heading">To-do List:</Heading>
+        {tasks.map((task) => (
+          <Card key={`${task?.title} ${task.description}`}>
+            <Flex>
+              <Checkbox defaultChecked style={{ alignSelf: "center" }} />
+              <Box className="text-container">
+                <p className="bold">{task?.title}</p>
+                <p>{task.description}</p>
+              </Box>
+              <IconTrash className="button" />
+            </Flex>
+          </Card>
+        ))}
+      </div>
+    </Flex>
   );
 }
+
+export default Tasks;

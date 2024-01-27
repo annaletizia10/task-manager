@@ -1,0 +1,21 @@
+.button{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.list-container{
+    max-width: 35%;
+}
+
+.heading{
+    margin-bottom: 20px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.text-container{
+    margin-left: 16px;
+}
+
