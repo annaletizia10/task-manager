@@ -10,16 +10,22 @@ const validationSchema = yup.object().shape({
   description: yup.string(),
 });
 
-export type task = {
+export type Task = {
+  id: string;
   title: string;
   description: string;
+  status: "COMPLETED" | "IN_PROGRESS";
+  createdAt: Date;
 };
 
 export default function CreateTask() {
-  const [tasks, setTasks] = useState([] as task[]);
+  const [tasks, setTasks] = useState([] as Task[]);
 
   useEffect(() => {
-    setTasks(JSON.parse(localStorage.getItem("tasks") as string));
+    const currentTasks = JSON.parse(localStorage.getItem("tasks") as string);
+    if (currentTasks) {
+      setTasks(currentTasks);
+    }
   }, []);
 
   const formik = useFormik({
@@ -29,7 +35,12 @@ export default function CreateTask() {
     },
     validationSchema,
     onSubmit(values) {
-      tasks.push({ ...values });
+      tasks.push({
+        id: Date.now().toString(),
+        ...values,
+        createdAt: new Date(),
+        status: "IN_PROGRESS",
+      });
 
       const tasksStr = JSON.stringify(tasks);
       localStorage.setItem("tasks", tasksStr);

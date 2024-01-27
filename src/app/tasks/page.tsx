@@ -4,11 +4,11 @@ import { Box, Button, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
 import { IconPlus, IconTrash } from "@tabler/icons-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { task } from "./new/page";
+import { Task } from "./new/page";
 import "./styles.css";
 
 function Tasks() {
-  const [tasks, setTasks] = useState([] as task[]);
+  const [tasks, setTasks] = useState([] as Task[]);
 
   useEffect(() => {
     setTasks(JSON.parse(localStorage.getItem("tasks") as string));
@@ -23,18 +23,22 @@ function Tasks() {
       </Button>
       <div className="list-container">
         <Heading className="heading">To-do List:</Heading>
-        {tasks.map((task) => (
-          <Card key={`${task?.title} ${task.description}`}>
-            <Flex>
-              <Checkbox defaultChecked style={{ alignSelf: "center" }} />
-              <Box className="text-container">
-                <p className="bold">{task?.title}</p>
-                <p>{task.description}</p>
-              </Box>
-              <IconTrash className="button" />
-            </Flex>
-          </Card>
-        ))}
+        {tasks.length !== 0 ? (
+          tasks.map((task) => (
+            <Card key={`${task.id} ${task.description}`}>
+              <Flex>
+                <Checkbox defaultChecked style={{ alignSelf: "center" }} />
+                <Box className="text-container">
+                  <p className="bold">{task?.title}</p>
+                  <p>{task.description}</p>
+                </Box>
+                <IconTrash className="button" />
+              </Flex>
+            </Card>
+          ))
+        ) : (
+          <p>No registered tags</p>
+        )}
       </div>
     </Flex>
   );
