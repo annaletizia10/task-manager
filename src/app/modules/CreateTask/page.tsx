@@ -25,15 +25,23 @@ export type Task = {
   createdAt: Date;
 };
 
-export default function CreateTaskModal() {
+export default function CreateTaskModal({
+  onClose,
+  type,
+  id,
+  updatedTasks,
+}: {
+  onClose?: () => void;
+  type?: string;
+  id?: string;
+  updatedTasks: Task[];
+}) {
   const [tasks, setTasks] = useState([] as Task[]);
+  const isEditing = type === "EDIT";
 
   useEffect(() => {
-    const currentTasks = JSON.parse(localStorage.getItem("tasks") as string);
-    if (currentTasks) {
-      setTasks(currentTasks);
-    }
-  }, []);
+    setTasks(updatedTasks);
+  }, [updatedTasks.length !== tasks.length]);
 
   const formik = useFormik({
     initialValues: {
@@ -51,6 +59,7 @@ export default function CreateTaskModal() {
 
       setStorage(tasks as [], "tasks");
       formik.resetForm();
+      onClose?.();
     },
   });
 

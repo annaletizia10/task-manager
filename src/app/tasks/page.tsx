@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 
 import { Box, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
 import { IconTrash } from "@tabler/icons-react";
@@ -17,11 +17,15 @@ function Tasks() {
   const [hasUpdated, setHasUpdated] = useState(false);
 
   useEffect(() => {
-    const currentTasks = JSON.parse(localStorage.getItem("tasks") as string);
+    getStorage("tasks");
+  }, [hasUpdated]);
+
+  function getStorage(value: string) {
+    const currentTasks = JSON.parse(localStorage.getItem(value) as string);
     if (currentTasks) {
       setTasks(currentTasks);
     }
-  }, [hasUpdated]);
+  }
 
   function handleDelete(id: string) {
     const currentTasks = tasks.filter((task) => task.id !== id);
@@ -44,7 +48,10 @@ function Tasks() {
   return (
     <Flex direction="column" style={{ padding: "30px 30px 0px 0px" }}>
       <div className="button">
-        <CreateTaskModal />
+        <CreateTaskModal
+          onClose={() => setHasUpdated((prevState) => !prevState)}
+          updatedTasks={tasks}
+        />
       </div>
       <div className="list-container">
         <Heading className="heading">To-do List:</Heading>
