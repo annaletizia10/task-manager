@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import CreateTask from "@/app/tasks/new/page";
+import CreateTaskModal from "@/app/modules/CreateTask/page";
 
 export default function Home() {
-  return <CreateTask />;
+  return <CreateTaskModal />;
 }

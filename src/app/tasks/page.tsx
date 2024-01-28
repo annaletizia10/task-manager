@@ -1,11 +1,15 @@
 "use client";
 
-import { Box, Button, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
-import { IconPlus, IconTrash } from "@tabler/icons-react";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Task } from "./new/page";
+
+import { Box, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
+import { IconTrash } from "@tabler/icons-react";
+
+import CreateTaskModal, { Task } from "../modules/CreateTask/page";
+import DeleteTaskModal from "../modules/DeleteTask/page";
+
 import { setStorage } from "../utils/functions";
+
 import "./styles.css";
 
 function Tasks() {
@@ -39,11 +43,9 @@ function Tasks() {
 
   return (
     <Flex direction="column" style={{ padding: "30px 30px 0px 0px" }}>
-      <Button className="button">
-        <Link href={"/tasks/new"}>
-          <IconPlus />
-        </Link>
-      </Button>
+      <div className="button">
+        <CreateTaskModal />
+      </div>
       <div className="list-container">
         <Heading className="heading">To-do List:</Heading>
         {tasks.length !== 0 ? (
@@ -59,10 +61,13 @@ function Tasks() {
                   <p className="bold">{task?.title}</p>
                   <p>{task.description}</p>
                 </Box>
-                <IconTrash
-                  className="button"
-                  onClick={() => handleDelete(task.id)}
-                />
+                <div className="button">
+                  {task.status === "COMPLETED" ? (
+                    <IconTrash onClick={() => handleDelete(task.id)} />
+                  ) : (
+                    <DeleteTaskModal onClick={handleDelete} id={task.id} />
+                  )}
+                </div>
               </Flex>
             </Card>
           ))
