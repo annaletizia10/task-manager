@@ -23,6 +23,7 @@ export type Task = {
   description: string;
   status: "COMPLETED" | "IN_PROGRESS";
   createdAt: Date;
+  updatedAt: Date | undefined;
 };
 
 export default function CreateTaskModal({
@@ -30,11 +31,13 @@ export default function CreateTaskModal({
   type,
   id,
   updatedTasks,
+  editTask,
 }: {
   onClose?: () => void;
-  type?: string;
+  type: "EDIT" | "CREATE";
   id?: string;
   updatedTasks: Task[];
+  editTask?: Task;
 }) {
   const [tasks, setTasks] = useState([] as Task[]);
   const isEditing = type === "EDIT";
@@ -45,17 +48,28 @@ export default function CreateTaskModal({
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      description: "",
+      title: editTask?.title ?? "",
+      description: editTask?.description ?? "",
     },
     validationSchema,
     onSubmit(values) {
-      tasks.push({
-        id: Date.now().toString(),
-        ...values,
-        createdAt: new Date(),
-        status: "IN_PROGRESS",
-      });
+      if (!isEditing) {
+        tasks.push({
+          id: Date.now().toString(),
+          ...values,
+          createdAt: new Date(),
+          status: "IN_PROGRESS",
+          updatedAt: undefined,
+        });
+      } else {
+        tasks.map((task) => {
+          if (task.id === id) {
+            (task.title = values.title),
+              (task.description = values.description),
+              (task.updatedAt = new Date());
+          }
+        });
+      }
 
       setStorage(tasks as [], "tasks");
       formik.resetForm();
@@ -66,12 +80,16 @@ export default function CreateTaskModal({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button radius="full">
-          <IconPlus />
-        </Button>
+        {isEditing ? (
+          <p>Edit</p>
+        ) : (
+          <Button radius="full">
+            <IconPlus />
+          </Button>
+        )}
       </Dialog.Trigger>
       <Dialog.Content className="modal">
-        <Dialog.Title>New task</Dialog.Title>
+        <Dialog.Title>{isEditing ? "Edit" : "New"} task</Dialog.Title>
         <form id="task" onSubmit={formik.handleSubmit}>
           <Grid gap="3">
             <TextInput
@@ -111,11 +129,11 @@ export default function CreateTaskModal({
             <Button
               type="submit"
               form="task"
-              disabled={!formik.isValid}
+              disabled={!formik.isValid || !formik.dirty}
               variant="soft"
               radius="full"
             >
-              Create
+              {isEditing ? "Save" : "Create"}
             </Button>
           </Dialog.Close>
         </Flex>

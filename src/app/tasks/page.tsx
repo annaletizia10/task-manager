@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
 import { IconTrash } from "@tabler/icons-react";
@@ -49,6 +49,7 @@ function Tasks() {
     <Flex direction="column" style={{ padding: "30px 30px 0px 0px" }}>
       <div className="button">
         <CreateTaskModal
+          type="CREATE"
           onClose={() => setHasUpdated((prevState) => !prevState)}
           updatedTasks={tasks}
         />
@@ -69,6 +70,13 @@ function Tasks() {
                   <p>{task.description}</p>
                 </Box>
                 <div className="button">
+                  <CreateTaskModal
+                    type="EDIT"
+                    onClose={() => setHasUpdated((prevState) => !prevState)}
+                    updatedTasks={tasks}
+                    id={task.id}
+                    editTask={task}
+                  />
                   {task.status === "COMPLETED" ? (
                     <IconTrash onClick={() => handleDelete(task.id)} />
                   ) : (
