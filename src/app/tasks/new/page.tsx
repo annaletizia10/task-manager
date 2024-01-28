@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Heading, TextArea, TextField } from "@radix-ui/themes";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import TextInput from "@/app/components/TextInput/page";
+import { setStorage } from "@/app/utils/functions";
+import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -42,8 +43,7 @@ export default function CreateTask() {
         status: "IN_PROGRESS",
       });
 
-      const tasksStr = JSON.stringify(tasks);
-      localStorage.setItem("tasks", tasksStr);
+      setStorage(tasks as [], "tasks");
     },
   });
 
