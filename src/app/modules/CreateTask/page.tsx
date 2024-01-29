@@ -81,7 +81,7 @@ export default function CreateTaskModal({
     <Dialog.Root>
       <Dialog.Trigger>
         {isEditing ? (
-          <p>Edit</p>
+          <p style={{ fontSize: "0.9rem" }}>Edit</p>
         ) : (
           <Button radius="full">
             <IconPlus />

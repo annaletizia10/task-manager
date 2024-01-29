@@ -20,9 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme>
-          <Nav />
-          <main style={{ paddingLeft: "20%" }}>{children}</main>
+        <Theme radius="full">
+          <main>{children}</main>
         </Theme>
       </body>
     </html>

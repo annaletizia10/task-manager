@@ -14,7 +14,7 @@ function DeleteTaskModal({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <IconTrash />
+        <IconTrash size={19} />
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: "350px" }}>
         <Dialog.Title>Delete uncompleted task</Dialog.Title>
