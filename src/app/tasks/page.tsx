@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Box, Card, Checkbox, Flex, Heading } from "@radix-ui/themes";
+import { Box, Checkbox, Flex, Heading } from "@radix-ui/themes";
 import { IconTrash } from "@tabler/icons-react";
 
 import CreateTaskModal, { Task } from "../modules/CreateTask/page";
 import DeleteTaskModal from "../modules/DeleteTask/page";
+import DetailTask from "../modules/DetailTask/page";
 
 import { setStorage } from "../utils/functions";
 
@@ -66,7 +67,6 @@ function Tasks() {
             <Flex className="card">
               <Checkbox
                 checked={task.status === "COMPLETED"}
-                variant="classic"
                 style={{
                   alignSelf: "center",
                   cursor: "pointer",
@@ -74,7 +74,9 @@ function Tasks() {
                 onClick={() => handleChangeStatus(task.id)}
               />
               <Box className="text-container">
-                <p className="bold">{task?.title}</p>
+                <p className="bold">
+                  <DetailTask task={task} />
+                </p>
                 <p>{task.description}</p>
               </Box>
               <Flex direction="column" className="button">

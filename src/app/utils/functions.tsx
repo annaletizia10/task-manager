@@ -3,4 +3,8 @@ function setStorage(arr: [], item: string) {
   localStorage.setItem(item, arrToStr);
 }
 
-export { setStorage };
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export { setStorage, capitalize };

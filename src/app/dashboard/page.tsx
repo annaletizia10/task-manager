@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Flex, Grid, Heading, Link } from "@radix-ui/themes";
 import { IconPoint, IconSparkles } from "@tabler/icons-react";
 
+import DetailTask from "../modules/DetailTask/page";
 import { Task } from "../modules/CreateTask/page";
 
 import "./styles.css";
@@ -37,7 +38,7 @@ function Dashboard() {
                   return (
                     <Flex gap="2" key={task.id} className="task">
                       <IconSparkles />
-                      <p>{task.title}</p>
+                      <DetailTask task={task} />
                     </Flex>
                   );
                 })
@@ -53,7 +54,7 @@ function Dashboard() {
                   return (
                     <Flex gap="2" key={task.id} className="task">
                       <IconPoint />
-                      <p>{task.title}</p>
+                      <DetailTask task={task} />
                     </Flex>
                   );
                 })

@@ -7,7 +7,7 @@ import { IconPlus } from "@tabler/icons-react";
 import { useFormik } from "formik";
 
 import TextInput from "@/app/components/TextInput/page";
-import { setStorage } from "@/app/utils/functions";
+import { capitalize, setStorage } from "@/app/utils/functions";
 
 import * as yup from "yup";
 import "./style.css";
@@ -56,7 +56,8 @@ export default function CreateTaskModal({
       if (!isEditing) {
         tasks.push({
           id: Date.now().toString(),
-          ...values,
+          title: capitalize(values.title),
+          description: capitalize(values.description),
           createdAt: new Date(),
           status: "IN_PROGRESS",
           updatedAt: undefined,
@@ -64,8 +65,8 @@ export default function CreateTaskModal({
       } else {
         tasks.map((task) => {
           if (task.id === id) {
-            (task.title = values.title),
-              (task.description = values.description),
+            (task.title = capitalize(values.title)),
+              (task.description = capitalize(values.description)),
               (task.updatedAt = new Date());
           }
         });
