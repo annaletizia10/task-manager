@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Box, Checkbox, Flex, Heading } from "@radix-ui/themes";
+import { Box, Checkbox, Flex, Heading, Tooltip } from "@radix-ui/themes";
 import { IconTrash } from "@tabler/icons-react";
 
 import CreateTaskModal, { Task } from "../modules/CreateTask/page";
@@ -61,42 +61,47 @@ function Tasks() {
         />
       </div>
       <div className="list-container">
-        <Heading className="heading">To-do List:</Heading>
+        <Heading className="heading">To-do List</Heading>
         {tasks.length !== 0 ? (
           tasks.map((task) => (
-            <Flex className="card">
-              <Checkbox
-                checked={task.status === "COMPLETED"}
-                style={{
-                  alignSelf: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => handleChangeStatus(task.id)}
-              />
-              <Box className="text-container">
-                <p className="bold">
-                  <DetailTask task={task} />
-                </p>
-                <p>{task.description}</p>
-              </Box>
-              <Flex direction="column" className="button">
-                <CreateTaskModal
-                  type="EDIT"
-                  onClose={() => setHasUpdated((prevState) => !prevState)}
-                  updatedTasks={tasks}
-                  id={task.id}
-                  editTask={task}
+            <Tooltip content="Task detail">
+              <Flex className="card">
+                <Checkbox
+                  checked={task.status === "COMPLETED"}
+                  style={{
+                    alignSelf: "center",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleChangeStatus(task.id)}
                 />
-                {task.status === "COMPLETED" ? (
-                  <IconTrash onClick={() => handleDelete(task.id)} size={19} />
-                ) : (
-                  <DeleteTaskModal onClick={handleDelete} id={task.id} />
-                )}
+                <Box className="text-container">
+                  <p className="bold">
+                    <DetailTask task={task} />
+                  </p>
+                  <p>{task.description}</p>
+                </Box>
+                <Flex direction="column" className="button">
+                  <CreateTaskModal
+                    type="EDIT"
+                    onClose={() => setHasUpdated((prevState) => !prevState)}
+                    updatedTasks={tasks}
+                    id={task.id}
+                    editTask={task}
+                  />
+                  {task.status === "COMPLETED" ? (
+                    <IconTrash
+                      onClick={() => handleDelete(task.id)}
+                      size={19}
+                    />
+                  ) : (
+                    <DeleteTaskModal onClick={handleDelete} id={task.id} />
+                  )}
+                </Flex>
               </Flex>
-            </Flex>
+            </Tooltip>
           ))
         ) : (
-          <p>No registered tags</p>
+          <p>No registered tasks, create one</p>
         )}
       </div>
     </Flex>

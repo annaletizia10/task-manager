@@ -1,6 +1,9 @@
-import { TextField } from "@radix-ui/themes";
 import React from "react";
 import type { CSSProperties, ChangeEvent, FocusEvent } from "react";
+
+import { TextField } from "@radix-ui/themes";
+
+import "./styles.css";
 
 type Props = {
   placeholder?: string;
@@ -25,7 +28,7 @@ function TextInput(props: Props) {
           value={value}
         ></TextField.Input>
       </TextField.Root>
-      {Boolean(error) && <p style={{ color: "red" }}>{error}</p>}
+      <p className="error-message">{error ? error : ""}</p>
     </div>
   );
 }

@@ -17,7 +17,14 @@ function DeleteTaskModal({
         <IconTrash size={19} />
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: "350px" }}>
-        <Dialog.Title>Delete uncompleted task</Dialog.Title>
+        <Dialog.Title
+          style={{
+            letterSpacing: "0.1rem",
+            fontWeight: "500",
+          }}
+        >
+          Delete uncompleted task
+        </Dialog.Title>
         <Dialog.Description style={{ marginBottom: "15px" }}>
           Are you sure? This action cannot be undone
         </Dialog.Description>

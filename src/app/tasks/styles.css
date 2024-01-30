@@ -1,3 +1,5 @@
+
+
 .button{
     margin-left: auto;
     cursor: pointer;
@@ -5,8 +7,9 @@
 }
 
 .list-container{
-    width: 35%;
-    margin: 0px auto;
+    width: 75%;
+    margin: 2rem auto;
+    
 }
 
 .card{
@@ -23,14 +26,21 @@
 
 .heading{
     margin-bottom: 20px;
+    letter-spacing: 0.1rem;
+    font-weight: 500;
 }
 
 .bold{
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .text-container{
     margin-left: 16px;
-  
+    
 }
 
+@media (min-width: 768px){
+    .list-container{
+        width: 35%
+    }
+}

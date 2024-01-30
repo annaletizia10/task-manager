@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Flex, Grid, Heading, Link } from "@radix-ui/themes";
+import { Flex, Grid, Heading, Link, Tooltip } from "@radix-ui/themes";
 import { IconPoint, IconSparkles } from "@tabler/icons-react";
 
 import DetailTask from "../modules/DetailTask/page";
@@ -24,38 +24,77 @@ function Dashboard() {
   const incompleted = tasks.filter((task) => task.status === "IN_PROGRESS");
 
   return (
-    <Flex direction="column" style={{ padding: "30px 15px" }}>
-      <Heading align="center" style={{ margin: "30px 0px" }}>
-        <Link href="/tasks">Tasks</Link>
-      </Heading>
-      <Flex justify="between" className="card-container">
+    <Flex className="container">
+      <Tooltip content="Go to your tasks">
+        <Heading align="center" style={{ margin: "30px 0px" }}>
+          <Link
+            href="/tasks"
+            style={{
+              color: "inherit",
+              textDecoration: "none",
+              letterSpacing: "0.15rem",
+              fontWeight: "500",
+            }}
+          >
+            Tasks
+          </Link>
+        </Heading>
+      </Tooltip>
+      <Flex className="card-container">
         <Flex direction={"column"} align={"center"} className="card">
-          <Heading>Completed</Heading>
+          <Heading
+            style={{
+              letterSpacing: "0.1rem",
+              fontWeight: "500",
+            }}
+          >
+            Completed
+          </Heading>
           <span className="page-title" />
           <Grid gap="3" className="card-content">
-            {completed.length > 0
-              ? completed.map((task) => {
-                  return (
+            {completed.length > 0 ? (
+              completed.map((task) => {
+                return (
+                  <Tooltip content="Task detail">
                     <Flex gap="2" key={task.id} className="task">
                       <IconSparkles />
                       <DetailTask task={task} />
                     </Flex>
-                  );
-                })
-              : "You havent completed any tasks"}
+                  </Tooltip>
+                );
+              })
+            ) : (
+              <p>
+                You havent completed any{" "}
+                <span>
+                  <Link href={"/tasks"} className="link">
+                    tasks
+                  </Link>
+                </span>
+              </p>
+            )}
           </Grid>
         </Flex>
         <Flex direction={"column"} align={"center"} className="card">
-          <Heading>Incompleted</Heading>
+          <Heading
+            style={{
+              letterSpacing: "0.1rem",
+              fontWeight: "500",
+            }}
+          >
+            Incompleted
+          </Heading>
           <span className="page-title" />
           <Grid gap="3" className="card-content">
             {incompleted.length > 0
               ? incompleted.map((task) => {
                   return (
-                    <Flex gap="2" key={task.id} className="task">
-                      <IconPoint />
-                      <DetailTask task={task} />
-                    </Flex>
+                    <Tooltip content="Task detail">
+                      <Flex gap="2" key={task.id} className="task">
+                        <IconPoint />
+                        <DetailTask task={task} />
+                      </Flex>
+                    </Tooltip>
                   );
                 })
               : "Nice work, you have acomplished everything in you list"}

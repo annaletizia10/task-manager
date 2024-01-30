@@ -23,11 +23,21 @@ function DetailTask({ task }: { task: Task }) {
         <p>{task.title}</p>
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: "350px" }}>
-        <Dialog.Title>{task.title}</Dialog.Title>
-        <Dialog.Description style={{ marginBottom: "15px" }}>
-          <Grid>
+        <Dialog.Title
+          align="center"
+          style={{
+            letterSpacing: "0.1rem",
+            fontWeight: "500",
+          }}
+        >
+          {task.title}
+        </Dialog.Title>
+        <Dialog.Description style={{ marginBottom: "26px" }}>
+          <div style={{ marginBottom: "16px" }}>
             <p style={{ fontWeight: "bold" }}>Description: </p>
             <p>{task.description}</p>
+          </div>
+          <Grid columns={"2"}>
             <div>
               <p style={{ fontWeight: "bold" }}>Created:</p>
               <p>{new Date(task.createdAt).toDateString()}</p>

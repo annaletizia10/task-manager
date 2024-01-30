@@ -1,7 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { Button, Dialog, Flex, Grid, TextArea } from "@radix-ui/themes";
+import {
+  Button,
+  Dialog,
+  Flex,
+  Grid,
+  TextArea,
+  Tooltip,
+} from "@radix-ui/themes";
 import { IconPlus } from "@tabler/icons-react";
 
 import { useFormik } from "formik";
@@ -85,12 +92,21 @@ export default function CreateTaskModal({
           <p style={{ fontSize: "0.9rem" }}>Edit</p>
         ) : (
           <Button radius="full">
-            <IconPlus />
+            <Tooltip content="Create a task">
+              <IconPlus />
+            </Tooltip>
           </Button>
         )}
       </Dialog.Trigger>
       <Dialog.Content className="modal">
-        <Dialog.Title>{isEditing ? "Edit" : "New"} task</Dialog.Title>
+        <Dialog.Title
+          style={{
+            letterSpacing: "0.1rem",
+            fontWeight: "500",
+          }}
+        >
+          {isEditing ? "Edit" : "New"} task
+        </Dialog.Title>
         <form id="task" onSubmit={formik.handleSubmit}>
           <Grid gap="3">
             <TextInput
