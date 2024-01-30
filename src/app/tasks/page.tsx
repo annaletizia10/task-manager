@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Box, Checkbox, Flex, Heading, Tooltip } from "@radix-ui/themes";
+import { Box, Checkbox, Flex, Heading } from "@radix-ui/themes";
 import { IconTrash } from "@tabler/icons-react";
 
 import CreateTaskModal, { Task } from "../modules/CreateTask/page";
@@ -64,41 +64,36 @@ function Tasks() {
         <Heading className="heading">To-do List</Heading>
         {tasks.length !== 0 ? (
           tasks.map((task) => (
-            <Tooltip content="Task detail">
-              <Flex className="card" key={task.id}>
-                <Checkbox
-                  checked={task.status === "COMPLETED"}
-                  style={{
-                    alignSelf: "center",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleChangeStatus(task.id)}
+            <Flex className="card" key={task.id}>
+              <Checkbox
+                checked={task.status === "COMPLETED"}
+                style={{
+                  alignSelf: "center",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleChangeStatus(task.id)}
+              />
+              <Box className="text-container">
+                <p className="bold">
+                  <DetailTask task={task} />
+                </p>
+                <p>{task.description}</p>
+              </Box>
+              <Flex direction="column" className="button">
+                <CreateTaskModal
+                  type="EDIT"
+                  onClose={() => setHasUpdated((prevState) => !prevState)}
+                  updatedTasks={tasks}
+                  id={task.id}
+                  editTask={task}
                 />
-                <Box className="text-container">
-                  <p className="bold">
-                    <DetailTask task={task} />
-                  </p>
-                  <p>{task.description}</p>
-                </Box>
-                <Flex direction="column" className="button">
-                  <CreateTaskModal
-                    type="EDIT"
-                    onClose={() => setHasUpdated((prevState) => !prevState)}
-                    updatedTasks={tasks}
-                    id={task.id}
-                    editTask={task}
-                  />
-                  {task.status === "COMPLETED" ? (
-                    <IconTrash
-                      onClick={() => handleDelete(task.id)}
-                      size={19}
-                    />
-                  ) : (
-                    <DeleteTaskModal onClick={handleDelete} id={task.id} />
-                  )}
-                </Flex>
+                {task.status === "COMPLETED" ? (
+                  <IconTrash onClick={() => handleDelete(task.id)} size={19} />
+                ) : (
+                  <DeleteTaskModal onClick={handleDelete} id={task.id} />
+                )}
               </Flex>
-            </Tooltip>
+            </Flex>
           ))
         ) : (
           <p>No registered tasks, create one</p>

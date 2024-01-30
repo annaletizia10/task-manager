@@ -94,7 +94,7 @@ function Dashboard() {
                 {incompleted.length > 0
                   ? incompleted.map((task) => {
                       return (
-                        <Tooltip content="Task detail">
+                        <Tooltip content="Task detail" key={task.id}>
                           <Flex gap="2" key={task.id} className="task">
                             <IconPoint />
                             <DetailTask task={task} />

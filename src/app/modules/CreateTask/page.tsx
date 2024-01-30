@@ -12,7 +12,6 @@ import {
 } from "@radix-ui/themes";
 import { IconPlus } from "@tabler/icons-react";
 
-import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
 
 import { useFormik } from "formik";
@@ -59,6 +58,8 @@ export default function CreateTaskModal({
 
   useEffect(() => {
     setTasks(updatedTasks);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatedTasks.length !== tasks.length]);
 
   const formik = useFormik({
