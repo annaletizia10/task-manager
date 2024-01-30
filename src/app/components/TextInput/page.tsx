@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from "react";
 import type { CSSProperties, ChangeEvent, FocusEvent } from "react";
 
@@ -15,7 +13,7 @@ export default function TextInput({
   error,
   onBlur,
 }: {
-  placeholder?: any;
+  placeholder?: string;
   id?: string;
   value?: string;
   style?: CSSProperties;
