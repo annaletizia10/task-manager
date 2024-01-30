@@ -128,6 +128,7 @@ export default function CreateTaskModal({
               value={formik.values.description}
               onBlur={formik.handleBlur}
               className="description"
+              style={{ padding: "3px" }}
             />
           </Grid>
         </form>

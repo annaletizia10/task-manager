@@ -19,14 +19,14 @@ function TextInput(props: Props) {
   const { placeholder, id, value, onChange, error, onBlur } = props;
   return (
     <div>
-      <TextField.Root>
+      <TextField.Root style={{ padding: "5px" }}>
         <TextField.Input
           placeholder={placeholder}
           id={id}
           onChange={onChange}
           onBlur={onBlur}
           value={value}
-        ></TextField.Input>
+        />
       </TextField.Root>
       <p className="error-message">{error ? error : ""}</p>
     </div>
