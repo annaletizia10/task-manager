@@ -1,34 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Task Tracker
 
-## Getting Started
+## Description
 
-First, run the development server:
+Task Tracker is a responsive web application designed to help you efficiently track your tasks. The application allows you to create, edit, and remove tasks, all of which are stored locally using `localStorage`. Each task can be marked as completed, and you can view a dashboard that displays both pending and completed tasks. Additionally, tasks can be associated with deadlines to help you manage your schedule effectively.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Create tasks with titles, descriptions, and deadlines.
+- Mark tasks as completed for better organization.
+- View a dashboard that categorizes tasks into pending and completed lists.
+- Responsive design ensures a seamless experience on various devices.
+- Utilizes `localStorage` for persistent storage of tasks.
+- Modal for creating and editing tasks provides a user-friendly interface.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Run
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To run the project, follow these steps:
 
-## Learn More
+1. Clone the repository and switch to the project's branch:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    git clone https://github.com/annaletizia10/task-manager.git
+    cd task-tracker
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install the project dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+3. Run the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm run dev
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to access the Task Tracker app.
+
+## Technologies Used
+
+- Next.js
+- React
+- TypeScript
+
+## Sreenshots
+
+![Screenshot_20240129_225016](https://github.com/annaletizia10/task-manager/assets/72099737/643bab3e-90c7-481a-8ccd-584202dd6257)
+
+![Screenshot_20240129_225236](https://github.com/annaletizia10/task-manager/assets/72099737/197609f5-0ec2-463f-b3a2-1fa1f53ac7d9)
+
+![Screenshot_20240129_230808](https://github.com/annaletizia10/task-manager/assets/72099737/8acbad27-7017-4fc4-90c0-3d389fcf1b7f)
+
+![Screenshot_20240129_225717-1](https://github.com/annaletizia10/task-manager/assets/72099737/d72d550a-0f76-4b35-9337-158033c25e8a)
+
+![Screenshot_20240129_225511](https://github.com/annaletizia10/task-manager/assets/72099737/b917a65d-d036-47d9-812d-74bdc12b5008)
+
+
