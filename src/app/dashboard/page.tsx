@@ -60,8 +60,8 @@ function Dashboard() {
                 {completed.length > 0 ? (
                   completed.map((task) => {
                     return (
-                      <Tooltip content="Task detail">
-                        <Flex gap="2" key={task.id} className="task">
+                      <Tooltip content="Task detail" key={task.id}>
+                        <Flex gap="2" className="task">
                           <IconSparkles />
                           <DetailTask task={task} />
                         </Flex>

@@ -65,7 +65,7 @@ function Tasks() {
         {tasks.length !== 0 ? (
           tasks.map((task) => (
             <Tooltip content="Task detail">
-              <Flex className="card">
+              <Flex className="card" key={task.id}>
                 <Checkbox
                   checked={task.status === "COMPLETED"}
                   style={{

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
+  DropdownMenu,
   Flex,
   Grid,
   TextArea,
@@ -11,17 +12,23 @@ import {
 } from "@radix-ui/themes";
 import { IconPlus } from "@tabler/icons-react";
 
+import { format } from "date-fns";
+import { DayPicker } from "react-day-picker";
+
 import { useFormik } from "formik";
 
 import TextInput from "@/app/components/TextInput/page";
 import { capitalize, setStorage } from "@/app/utils/functions";
 
 import * as yup from "yup";
+
+import "react-day-picker/dist/style.css";
 import "./style.css";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Required"),
   description: yup.string(),
+  deadlineAt: yup.date(),
 });
 
 export type Task = {
@@ -31,6 +38,7 @@ export type Task = {
   status: "COMPLETED" | "IN_PROGRESS";
   createdAt: Date;
   updatedAt: Date | undefined;
+  deadlineAt: Date | undefined;
 };
 
 export default function CreateTaskModal({
@@ -57,6 +65,7 @@ export default function CreateTaskModal({
     initialValues: {
       title: editTask?.title ?? "",
       description: editTask?.description ?? "",
+      deadlineAt: editTask?.deadlineAt ?? undefined,
     },
     validationSchema,
     onSubmit(values) {
@@ -68,6 +77,7 @@ export default function CreateTaskModal({
           createdAt: new Date(),
           status: "IN_PROGRESS",
           updatedAt: undefined,
+          deadlineAt: values.deadlineAt ?? undefined,
         });
       } else {
         tasks.map((task) => {
@@ -75,6 +85,7 @@ export default function CreateTaskModal({
             (task.title = capitalize(values.title)),
               (task.description = capitalize(values.description)),
               (task.updatedAt = new Date());
+            task.deadlineAt = values.deadlineAt ?? undefined;
           }
         });
       }
@@ -127,9 +138,29 @@ export default function CreateTaskModal({
               onChange={formik.handleChange}
               value={formik.values.description}
               onBlur={formik.handleBlur}
-              className="description"
               style={{ padding: "3px" }}
             />
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger
+                className={!formik.values.deadlineAt ? "description" : ""}
+              >
+                <Button variant="soft">Add a deadline</Button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DayPicker
+                  mode="single"
+                  id="deadlineAt"
+                  selected={formik.values.deadlineAt}
+                  onDayClick={(e) => formik.setFieldValue("deadlineAt", e)}
+                />
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+            {formik.values.deadlineAt && (
+              <p className={formik.values.deadlineAt ? "description" : ""}>
+                Task deadline:{" "}
+                {new Date(formik.values.deadlineAt).toDateString()}
+              </p>
+            )}
           </Grid>
         </form>
         <Flex justify="between">

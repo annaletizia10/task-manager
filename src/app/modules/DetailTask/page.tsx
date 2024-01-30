@@ -37,7 +37,7 @@ function DetailTask({ task }: { task: Task }) {
             <p style={{ fontWeight: "bold" }}>Description: </p>
             <p>{task.description}</p>
           </div>
-          <Grid columns={"2"}>
+          <Grid columns="2" gap="3">
             <div>
               <p style={{ fontWeight: "bold" }}>Created:</p>
               <p>{new Date(task.createdAt).toDateString()}</p>
@@ -46,6 +46,12 @@ function DetailTask({ task }: { task: Task }) {
               <div>
                 <p style={{ fontWeight: "bold" }}>Last updated:</p>
                 <p>{new Date(task.updatedAt ?? "").toDateString()}</p>
+              </div>
+            )}
+            {Boolean(task.deadlineAt) && (
+              <div>
+                <p style={{ fontWeight: "bold" }}>Deadline date:</p>
+                <p>{new Date(task.deadlineAt ?? "").toDateString()}</p>
               </div>
             )}
           </Grid>
